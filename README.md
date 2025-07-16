@@ -7,7 +7,7 @@ Uses zstash to cache dependencies.
 ```
 steps:
   - plugins:
-    - bk-playground/zstash#v0.1.0:
+    - buildkite/zstash#v0.1.0:
         id: "node"
         key: '{{ id }}-{{ agent.os }}-{{ agent.arch }}-{{ checksum "package-lock.json" }}'
         fallback_keys: |
