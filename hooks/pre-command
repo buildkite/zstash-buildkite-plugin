@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+shopt -s lastpipe
+
+BK_ZSTASH_ID="${BUILDKITE_PLUGIN_ZSTASH_ID:-}"
+
+zstash restore \
+  --id "${BK_ZSTASH_ID}" \
+  --key "$(printf '%s' "$BUILDKITE_PLUGIN_ZSTASH_KEY")" \
+  --fallback-keys "$(printf '%s' "${BUILDKITE_PLUGIN_ZSTASH_FALLBACK_KEYS:-}")" \
+  --bucket-url "${BUILDKITE_PLUGIN_ZSTASH_BUCKET_URL}" \
+  --paths "${BUILDKITE_PLUGIN_ZSTASH_PATHS}" | read cache_result
+
+echo "Cache HIT: ${cache_result}"
+
+buildkite-agent meta-data set "zstash.restore.${BK_ZSTASH_ID}.result" "${cache_result}"

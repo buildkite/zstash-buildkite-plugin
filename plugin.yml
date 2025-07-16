@@ -1,0 +1,20 @@
+name: zstash
+description: zstash cache plugin for Buildkite. Supports Linux and macOS
+author: https://github.com/buildkite
+requirements:
+  - zstash
+configuration:
+  properties:
+    id:
+      type: string
+    key:
+      type: string
+    fallback_keys:
+      type: string
+    paths:
+      type: string
+    bucket-url:
+      type: string
+    skip-save:
+      type: boolean
+  additionalProperties: false
