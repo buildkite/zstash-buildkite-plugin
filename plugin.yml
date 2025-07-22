@@ -15,6 +15,8 @@ configuration:
       type: string
     bucket-url:
       type: string
+    store:
+      type: string
     skip-save:
       type: boolean
   additionalProperties: false
