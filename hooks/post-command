@@ -2,6 +2,7 @@
 set -euo pipefail
 
 BK_ZSTASH_ID="${BUILDKITE_PLUGIN_ZSTASH_ID:-}"
+BK_STORE="${BUILDKITE_PLUGIN_ZSTASH_STORE:-s3}"
 
 cache_result=$(buildkite-agent meta-data get "zstash.restore.${BK_ZSTASH_ID}.result")
 
@@ -10,6 +11,7 @@ BK_ZSTASH_SKIP=${cache_result:-false}
 zstash save \
   --id "${BK_ZSTASH_ID}" \
   --key "$(printf '%s' "$BUILDKITE_PLUGIN_ZSTASH_KEY")" \
+  --store "${BK_STORE}" \
   --fallback-keys "$(printf '%s' "${BUILDKITE_PLUGIN_ZSTASH_FALLBACK_KEYS:-}")" \
   --bucket-url "${BUILDKITE_PLUGIN_ZSTASH_BUCKET_URL}" \
   --paths "${BUILDKITE_PLUGIN_ZSTASH_PATHS}" \

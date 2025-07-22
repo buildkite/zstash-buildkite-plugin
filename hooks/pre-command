@@ -4,9 +4,12 @@ shopt -s lastpipe
 
 BK_ZSTASH_ID="${BUILDKITE_PLUGIN_ZSTASH_ID:-}"
 
+BK_STORE="${BUILDKITE_PLUGIN_ZSTASH_STORE:-s3}"
+
 zstash restore \
   --id "${BK_ZSTASH_ID}" \
   --key "$(printf '%s' "$BUILDKITE_PLUGIN_ZSTASH_KEY")" \
+  --store "${BK_STORE}" \
   --fallback-keys "$(printf '%s' "${BUILDKITE_PLUGIN_ZSTASH_FALLBACK_KEYS:-}")" \
   --bucket-url "${BUILDKITE_PLUGIN_ZSTASH_BUCKET_URL}" \
   --paths "${BUILDKITE_PLUGIN_ZSTASH_PATHS}" | read cache_result
