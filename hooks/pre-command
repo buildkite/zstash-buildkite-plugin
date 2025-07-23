@@ -10,6 +10,7 @@ zstash restore \
   --id "${BK_ZSTASH_ID}" \
   --key "$(printf '%s' "$BUILDKITE_PLUGIN_ZSTASH_KEY")" \
   --store "${BK_STORE}" \
+  --registry-slug "${}{BUILDKITE_PLUGIN_ZSTASH_REGISTRY_SLUG}" \
   --fallback-keys "$(printf '%s' "${BUILDKITE_PLUGIN_ZSTASH_FALLBACK_KEYS:-}")" \
   --bucket-url "${BUILDKITE_PLUGIN_ZSTASH_BUCKET_URL}" \
   --paths "${BUILDKITE_PLUGIN_ZSTASH_PATHS}" | read cache_result
