@@ -16,7 +16,8 @@ configuration:
     bucket-url:
       type: string
     store:
-      type: string
+      enum: ["s3", "nsc"]
+      default: "s3"
     skip-save:
       type: boolean
   additionalProperties: false
