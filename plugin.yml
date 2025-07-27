@@ -20,6 +20,9 @@ configuration:
       # in https://github.com/buildkite/zstash/blob/main/internal/commands/restore.go
       enum: ["s3", "nsc"]
       default: "s3"
+    registry:
+      type: string
+      default: "~"
     skip-save:
       type: boolean
   additionalProperties: false
