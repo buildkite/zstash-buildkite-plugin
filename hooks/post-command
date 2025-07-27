@@ -12,7 +12,7 @@ zstash save \
   --id "${BK_ZSTASH_ID}" \
   --key "$(printf '%s' "$BUILDKITE_PLUGIN_ZSTASH_KEY")" \
   --store "${BK_STORE}" \
-  --registry-slug "${}{BUILDKITE_PLUGIN_ZSTASH_REGISTRY_SLUG}" \
+  --registry-slug "${}{BUILDKITE_PLUGIN_ZSTASH_REGISTRY}" \
   --fallback-keys "$(printf '%s' "${BUILDKITE_PLUGIN_ZSTASH_FALLBACK_KEYS:-}")" \
   --bucket-url "${BUILDKITE_PLUGIN_ZSTASH_BUCKET_URL}" \
   --paths "${BUILDKITE_PLUGIN_ZSTASH_PATHS}" \
