@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeufo pipefail
 
-BK_ZSTASH_ID="${BUILDKITE_PLUGIN_ZSTASH_ID:-}"
-BK_STORE="${BUILDKITE_PLUGIN_ZSTASH_STORE:-s3}"
+zstash_ids="${BUILDKITE_PLUGIN_ZSTASH_IDS:-}"
+zstash_config="${BUILDKITE_PLUGIN_ZSTASH_CONFIG:-}"
 
-cache_result=$(buildkite-agent meta-data get "zstash.restore.${BK_ZSTASH_ID}.result")
+ZSTASH_FLAGS=""
 
-BK_ZSTASH_SKIP=${cache_result:-false}
+if [ "${zstash_ids}" != "" ]; then
+  ZSTASH_FLAGS="${ZSTASH_FLAGS} --ids ${zstash_ids}"
+fi
 
-zstash save \
-  --id "${BK_ZSTASH_ID}" \
-  --key "$(printf '%s' "$BUILDKITE_PLUGIN_ZSTASH_KEY")" \
-  --store "${BK_STORE}" \
-  --registry-slug "${}{BUILDKITE_PLUGIN_ZSTASH_REGISTRY}" \
-  --fallback-keys "$(printf '%s' "${BUILDKITE_PLUGIN_ZSTASH_FALLBACK_KEYS:-}")" \
-  --bucket-url "${BUILDKITE_PLUGIN_ZSTASH_BUCKET_URL}" \
-  --paths "${BUILDKITE_PLUGIN_ZSTASH_PATHS}" \
-  --skip="${BK_ZSTASH_SKIP}"
+if [ "${zstash_config}" != "" ]; then
+  ZSTASH_FLAGS="${ZSTASH_FLAGS} --config ${zstash_config}"
+fi
+
+if [ "${ZSTASH_FLAGS}" != "" ]; then
+  zstash save "${ZSTASH_FLAGS}"
+else
+  zstash save
+fi
