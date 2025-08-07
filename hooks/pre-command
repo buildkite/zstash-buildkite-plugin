@@ -13,6 +13,4 @@ if [ "${zstash_config}" != "" ]; then
   zstash_command+=" --config ${zstash_config}"
 fi
 
-${zstash_command} | read -r cache_result
-
-echo "Cache HIT: ${cache_result}"
+${zstash_command}
