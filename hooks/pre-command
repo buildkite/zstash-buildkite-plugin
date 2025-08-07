@@ -3,21 +3,16 @@ set -Eeufo pipefail
 
 zstash_ids="${BUILDKITE_PLUGIN_ZSTASH_IDS:-}"
 zstash_config="${BUILDKITE_PLUGIN_ZSTASH_CONFIG:-}"
-
-ZSTASH_FLAGS=""
+zstash_command="zstash restore"
 
 if [ "${zstash_ids}" != "" ]; then
-  ZSTASH_FLAGS="${ZSTASH_FLAGS} --ids ${zstash_ids}"
+  zstash_command+=" --ids ${zstash_ids}"
 fi
 
 if [ "${zstash_config}" != "" ]; then
-  ZSTASH_FLAGS="${ZSTASH_FLAGS} --config ${zstash_config}"
+  zstash_command+=" --config ${zstash_config}"
 fi
 
-if [ "${ZSTASH_FLAGS}" != "" ]; then
-  zstash restore "${ZSTASH_FLAGS}" | read -r cache_result
-else
-  zstash restore | read -r cache_result
-fi
+${zstash_command} | read -r cache_result
 
 echo "Cache HIT: ${cache_result}"
