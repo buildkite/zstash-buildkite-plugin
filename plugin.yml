@@ -5,24 +5,12 @@ requirements:
   - zstash
 configuration:
   properties:
-    id:
+    ids:
       type: string
-    key:
+      description: Comma separated list of ids to cache (e.g. "node,docker")
+      required: false
+    config:
       type: string
-    fallback_keys:
-      type: string
-    paths:
-      type: string
-    bucket-url:
-      type: string
-    store:
-      # Keep this in sync with the RestoreCmd.Store attribute
-      # in https://github.com/buildkite/zstash/blob/main/internal/commands/restore.go
-      enum: ["s3", "nsc"]
-      default: "s3"
-    registry:
-      type: string
-      default: "~"
-    skip-save:
-      type: boolean
+      description: Path to zstash config file (e.g. ".buildkite/cache.yml")
+      required: false
   additionalProperties: false

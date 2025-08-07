@@ -7,14 +7,9 @@ Uses zstash to cache dependencies.
 ```
 steps:
   - plugins:
-    - buildkite/zstash#v0.1.0:
-        id: "node"
-        key: '{{ id }}-{{ agent.os }}-{{ agent.arch }}-{{ checksum "package-lock.json" }}'
-        fallback_keys: |
-          {{ id }}-{{ agent.os }}-{{ agent.arch }}-
-        paths: |
-          node_modules
-        bucket-url: $BUCKET_URL
+    - buildkite/zstash:
+        ids: "node,docker"
+        config: "./path/to/cache.yml"
 ```
 
 ## License
