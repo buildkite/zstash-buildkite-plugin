@@ -3,19 +3,14 @@ set -Eeufo pipefail
 
 zstash_ids="${BUILDKITE_PLUGIN_ZSTASH_IDS:-}"
 zstash_config="${BUILDKITE_PLUGIN_ZSTASH_CONFIG:-}"
-
-ZSTASH_FLAGS=""
+zstash_command="zstash save"
 
 if [ "${zstash_ids}" != "" ]; then
-  ZSTASH_FLAGS="${ZSTASH_FLAGS} --ids ${zstash_ids}"
+  zstash_command+=" --ids ${zstash_ids}"
 fi
 
 if [ "${zstash_config}" != "" ]; then
-  ZSTASH_FLAGS="${ZSTASH_FLAGS} --config ${zstash_config}"
+  zstash_command+=" --config ${zstash_config}"
 fi
 
-if [ "${ZSTASH_FLAGS}" != "" ]; then
-  zstash save "${ZSTASH_FLAGS}"
-else
-  zstash save
-fi
+${zstash_command}
